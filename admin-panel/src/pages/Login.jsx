@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { isAuthenticated } from '../handlers/authHandler'
 import { useNavigate } from 'react-router-dom'
-import bgImage from '../assets/images/login-bg.png'
+import bgImage from '../assets/images/login-bg.jpg'
 import { Box, Card, FormControl, TextField, Typography } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import authApi from '../api/authApi'
@@ -59,9 +59,9 @@ const Login = () => {
                 height: '100vh',
                 display: 'flex',
                 justifyContent: 'flex-start',
-                backgroundImage: `url(${bgImage})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'right'
+                // backgroundImage: `url(${bgImage})`,
+                // backgroundSize: 'cover',
+                // backgroundPosition: 'right'
             }}
         >
             <Card sx={{
@@ -126,6 +126,27 @@ const Login = () => {
                         Sign in
                     </LoadingButton>
                 </Box>
+            </Card>
+            <Card sx={{
+                width: '100%',
+            }}>
+                <Box sx={{
+                        height: '100%',
+                        width: '100%',
+                        '& .MuiTextField-root': { mb: 5 },
+                        // display: 'flex',
+                        // alignItems: 'center',
+                        // justifyContent: 'flex-start',
+                        // flexDirection: 'column',
+                        // margin: 'auto',
+                        // padding: '5rem 1rem'
+                        backgroundImage: `url(${bgImage})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'left center'
+                    }}>
+
+                </Box>
+
             </Card>
         </Box>
     )
