@@ -5,6 +5,19 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import vaccineApi from "../api/vaccineApi";
 import { PageHeader } from "../components";
+
+//excell
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import {
+  Grid,
+  GridColumn,
+  GridToolbar,
+  GRID_COL_INDEX_ATTRIBUTE,
+} from "@progress/kendo-react-grid";
+import { ExcelExport } from "@progress/kendo-react-excel-export";
+import { useTableKeyboardNavigation } from "@progress/kendo-react-data-tools";
+
 const Place = () => {
   const [placeList, setPlaceList] = useState([]);
   const [pageSize, setPageSize] = useState(9);
@@ -20,42 +33,15 @@ const Place = () => {
     };
     getPlaces();
   }, []);
-
+  const _export = React.useRef(null);
+  const excelExport = () => {
+    _export.current.save();
+  };
   const tableHeader = [
-    // {
-    //     field: 'name', headerName: 'Name', width: 200,
-    //     renderCell: (params) => <Button
-    //         variant='text'
-    //         component={Link}
-    //         to={`/place/${params.row.id}`}
-    //     >
-    //         {params.value}
-    //     </Button>
-    // },
-    // {
-    //     field: 'creator', headerName: 'Created by', width: 220,
-    //     renderCell: (params) => <Button
-    //         variant='text'
-    //         component={Link}
-    //         to={`/user/${params.value._id}`}
-    //     >
-    //         {params.value.fullName}
-    //     </Button>
-    // },
-    // {
-    //     field: 'userVisitLast24h', headerName: 'User check in last 24h', width: 220, align: 'right',
-    //     renderCell: (params) => params.value.length
-    // },
-    // {
-    //     field: '_id', headerName: 'Name', flex: 1
-    // },
-    // name of colection user
     {
       field: "idNumber",
       headerName: "Username",
       renderCell: (params) => (
-        // { console.log(params.row.user);
-        //     return <p style={{color: 'red'}}>{params.row.user.idNumber}</p>}
         <Button
           variant="text"
           component={Link}
@@ -80,7 +66,7 @@ const Place = () => {
       field: "address",
       headerName: "Address",
       flex: 1,
-      valueGetter: (params) => params.row.user.address
+      valueGetter: (params) => params.row.user.address,
     },
     {
       field: "vaccine",
@@ -88,7 +74,7 @@ const Place = () => {
       flex: 1,
       renderCell: (params) => {
         // console.log(params.value);
-        return params.value.name
+        return params.value.name;
       },
     },
 
@@ -101,22 +87,61 @@ const Place = () => {
     },
   ];
   return (
-    <>
-      <PageHeader title="Last User last 24h List" />
-      <Paper elevation={0}>
-        <DataGrid
-          autoHeight
-          rows={placeList}
-          columns={tableHeader}
-          pageSize={pageSize}
-          onPageSizeChange={(size) => setPageSize(size)}
-          rowsPerPageOptions={[9, 50, 100]}
-          showCellRightBorder
-          showColumnRightBorder
-          disableSelectionOnClick
+    <ExcelExport ref={_export} data={placeList} fileName="places.xlsx">
+      <Grid data={placeList} style={{ height: "420px" }}>
+        <PageHeader title="Last User last 24h List" />
+        <GridToolbar>
+          <button
+            title="Export Excel"
+            className="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary"
+            onClick={excelExport}
+          >
+            Export to Excel
+          </button>
+        </GridToolbar>
+        <GridColumn
+          field="user.idNumber"
+          title="Username"
+          flex="1"
+          cell={(props) => {
+            console.log({ props });
+            const field = props.field || "";
+            const value =
+              props.dataItem[field] || props.dataItem["user"].idNumber;
+            const userId = props.dataItem["user"].id;
+            const navigationAttributes = useTableKeyboardNavigation(props.id);
+            return (
+              <td
+                colSpan={props.colSpan}
+                role={"gridcell"}
+                aria-colindex={props.ariaColumnIndex}
+                aria-selected={props.isSelected}
+                {...{
+                  [GRID_COL_INDEX_ATTRIBUTE]: props.columnIndex,
+                }}
+                {...navigationAttributes}
+              >
+                <Button variant="text" component={Link} to={`/user/${userId}`}>
+                  {value}
+                </Button>
+              </td>
+            );
+          }}
         />
-      </Paper>
-    </>
+        <GridColumn field="user.fullName" title="Username" flex="1" />
+        <GridColumn field="user.address" title="Address" flex="1" />
+        <GridColumn
+          field="createdAt"
+          title="time"
+          flex="1"
+          //format moment
+          cell={(params) => { 
+            return <td>{moment(params.value).format("DD-MM-YYYY HH:mm:ss")}</td>
+          }}
+        />
+        <GridColumn field="vaccine.name" title="vaccine" flex="1" />
+      </Grid>
+    </ExcelExport>
   );
 };
 
