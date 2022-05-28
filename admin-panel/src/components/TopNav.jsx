@@ -31,7 +31,7 @@ const TopNav = () => {
                     component='div'
                     sx={{flexGrow: 1}}
                 >
-                    VACCINE PASSPORT
+                    Information Management System
                 </Typography>
                 <Stack
                     direction='row'

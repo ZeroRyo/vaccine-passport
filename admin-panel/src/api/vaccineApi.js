@@ -7,7 +7,8 @@ const vaccineApi = {
     create: (params) => axiosClient.post(vaccineEndpoint, params),
     getOne: (id) => axiosClient.get(`${vaccineEndpoint}/${id}`),
     update: (id, params) => axiosClient.put(`${vaccineEndpoint}/${id}`, params),
-    delete: (id) => axiosClient.delete(`${vaccineEndpoint}/${id}`)
+    delete: (id) => axiosClient.delete(`${vaccineEndpoint}/${id}`),
+    getAll24hUser: () => axiosClient.get(`${vaccineEndpoint}/24h`),
 }
 
 export default vaccineApi

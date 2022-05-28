@@ -29,7 +29,7 @@ const User = () => {
     const tableHeader = [
         {
             field: 'idNumber',
-            headerName: 'ID card',
+            headerName: 'Username',
             renderCell: (params) => <Button
                 variant='text'
                 component={Link}

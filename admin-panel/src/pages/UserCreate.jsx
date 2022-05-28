@@ -80,7 +80,7 @@ const UserCreate = () => {
                             <CardContent>
                                 <FormControl fullWidth margin='normal'>
                                     <TextField
-                                        label='Id card'
+                                        label='Username'
                                         variant='outlined'
                                         value={idCard}
                                         onChange={(e) => setIdCard(e.target.value)}

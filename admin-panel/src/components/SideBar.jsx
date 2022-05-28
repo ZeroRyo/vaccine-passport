@@ -19,7 +19,7 @@ const sideBarItems = [
         icon: <PersonOutlineOutlinedIcon/>
     },
     {
-        text: 'Place',
+        text: 'Last 24 hours',
         path: '/place',
         icon: <PlaceOutlinedIcon/>
     },

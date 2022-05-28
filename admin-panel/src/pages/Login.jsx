@@ -88,7 +88,7 @@ const Login = () => {
                         mb='4rem'
                         fontWeight='700'
                     >
-                        VACCINE PASSPORT
+                        Information Management System
                     </Typography>
                     <FormControl fullWidth>
                         <TextField

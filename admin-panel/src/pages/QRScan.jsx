@@ -66,7 +66,7 @@ const QRScan = () => {
                                         <FormControl>
                                             {
                                                 user && <TextField
-                                                    label='Id card'
+                                                    label='Username'
                                                     variant='outlined'
                                                     value={user.idNumber}
                                                     InputProps={{ readOnly: true }}

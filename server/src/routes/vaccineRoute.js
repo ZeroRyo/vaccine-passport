@@ -15,6 +15,11 @@ router.get(
     tokenHandler.verifyAdminToken,
     vaccineController.getAll
 );
+router.get(
+    '/24h',
+    tokenHandler.verifyAdminToken,
+    vaccineController.getAll24hUser
+);
 
 router.get(
     '/:id',
