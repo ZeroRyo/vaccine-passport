@@ -1,22 +1,19 @@
-import { Button, Paper } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import moment from "moment";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import vaccineApi from "../api/vaccineApi";
-import { PageHeader } from "../components";
-
-//excell
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { Button } from "@mui/material";
+import { useTableKeyboardNavigation } from "@progress/kendo-react-data-tools";
+import { ExcelExport } from "@progress/kendo-react-excel-export";
 import {
   Grid,
   GridColumn,
   GridToolbar,
-  GRID_COL_INDEX_ATTRIBUTE,
+  GRID_COL_INDEX_ATTRIBUTE
 } from "@progress/kendo-react-grid";
-import { ExcelExport } from "@progress/kendo-react-excel-export";
-import { useTableKeyboardNavigation } from "@progress/kendo-react-data-tools";
+import moment from "moment";
+//excell
+import * as React from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import vaccineApi from "../api/vaccineApi";
+import { PageHeader } from "../components";
 
 const Place = () => {
   const [placeList, setPlaceList] = useState([]);
@@ -33,6 +30,7 @@ const Place = () => {
     };
     getPlaces();
   }, []);
+  // setup export to excel
   const _export = React.useRef(null);
   const excelExport = () => {
     _export.current.save();
@@ -87,7 +85,7 @@ const Place = () => {
     },
   ];
   return (
-    <ExcelExport ref={_export} data={placeList} fileName="places.xlsx">
+    <ExcelExport ref={_export} data={placeList} fileName="Lash24h.xlsx">
       <Grid data={placeList} style={{ height: "420px" }}>
         <PageHeader title="Last User last 24h List" />
         <GridToolbar>
@@ -130,16 +128,17 @@ const Place = () => {
         />
         <GridColumn field="user.fullName" title="Username" flex="1" />
         <GridColumn field="user.address" title="Address" flex="1" />
-        <GridColumn
+        
+        <GridColumn field="vaccine.name" title="vaccine" flex="1" />
+        <GridColumn 
           field="createdAt"
           title="time"
           flex="1"
           //format moment
           cell={(params) => { 
-            return <td>{moment(params.value).format("DD-MM-YYYY HH:mm:ss")}</td>
+            return <td>{moment(params.dataItem.createdAt).format("DD-MM-YYYY HH:mm:ss")}</td>
           }}
         />
-        <GridColumn field="vaccine.name" title="vaccine" flex="1" />
       </Grid>
     </ExcelExport>
   );

@@ -23,18 +23,18 @@ const VaccineLots = ({vaccine, onLotAdded, onLotDeleted,onLotUpdated}) => {
 
     const tableHeader = [
         {
-            field: 'name', headerName: 'Lot number', width: 200
+            field: 'name', headerName: 'Lot number', width: 100
         },
         {
-            field: 'quantity', headerName: 'Quantity', width: 150, align: 'right',
+            field: 'quantity', headerName: 'Quantity', width: 80, 
             renderCell: (params) => params.value.toLocaleString('de-dE')
         },
         {
-            field: 'vaccinated', headerName: 'Vaccinated', width: 150, align: 'right',
+            field: 'vaccinated', headerName: 'Vaccinated', width: 100, 
             renderCell: (params) => params.value.toLocaleString('de-dE')
         },
         {
-            field: 'id', headerName: 'Availabe', width: 150, align: 'right',
+            field: 'id', headerName: 'Availabe', width: 70, 
             renderCell: (params) => (params.row.quantity - params.row.vaccinated).toLocaleString('de-dE')
         },
         {
