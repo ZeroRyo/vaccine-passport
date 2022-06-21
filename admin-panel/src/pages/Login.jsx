@@ -92,7 +92,7 @@ const Login = () => {
                     </Typography>
                     <FormControl fullWidth>
                         <TextField
-                            label='Username'
+                            label='admin'
                             variant='outlined'
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
@@ -101,7 +101,7 @@ const Login = () => {
                     </FormControl>
                     <FormControl fullWidth>
                         <TextField
-                            label='Password'
+                            label='huyhungdev'
                             type='password'
                             variant='outlined'
                             value={password}
